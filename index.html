@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+
+  <title>Kumara | Frontend Mentor | Age calculator app</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    .attribution {
+      font-size: 11px;
+      font-style: italic;
+      text-align: center;
+    }
+
+    .attribution a {
+      color: hsl(228, 45%, 44%);
+    }
+
+    body {
+      display: grid;
+      place-items: center;
+      background-color: whitesmoke;
+      margin: 0;
+      padding: 0;
+    }
+
+    .box {
+      background-color: white;
+      width: 500px;
+      height: 450px;
+      margin-top: 60px;
+      margin-bottom: 25px;
+      border-bottom-right-radius: 200px;
+      border-bottom-left-radius: 10px;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+
+    img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+
+    #div-button {
+      position: relative;
+      height: 5px;
+    }
+
+    button {
+      background-color: white;
+      border-color: transparent;
+      border-radius: 50%;
+      position: absolute;
+      right: -5%;
+      top: -50px;
+    }
+
+    label {
+      font-size: xx-small;
+      font-weight: bold;
+      font-family: sans-serif;
+      color: grey;
+    }
+
+    .day {
+      margin-left: 10px;
+    }
+
+    .month {
+      margin-left: 100px;
+    }
+
+    .year {
+      margin-left: 80px;
+    }
+
+    input {
+      width: 80px;
+      height: 50px;
+      margin-top: 10px;
+      margin-right: 20px;
+      padding-left: 10px;
+      border-radius: 10px;
+      font-size: xx-large;
+      font-weight: bolder;
+      border-color: transparent;
+      outline: 1px solid grey;
+    }
+
+    .form {
+      margin-left: 50px;
+      width: 400px;
+      margin-top: 20px;
+    }
+
+    .inner-box {
+      /* display: grid; */
+      margin-left: 50px;
+    }
+
+    .error-states {
+      color: red;
+      font-weight: lighter;
+      font-family: system-ui;
+      font-size: xx-small;
+    }
+
+    #error-day {
+      visibility: hidden;
+    }
+
+    #error-month {
+      margin-left: 40px;
+      visibility: hidden;
+    }
+
+    #error-year {
+      visibility: hidden;
+      margin-left: 20px;
+    }
+
+    span {
+      color: purple;
+      font-size: xxx-large;
+      font-weight: bolder;
+      padding-right: 10px;
+    }
+
+    p {
+      font-family: system-ui;
+      font-size: 60px;
+      font-weight: bolder;
+      margin: 0px;
+      font-style: italic;
+    }
+
+    @media screen and (max-width: 800px) {
+      body {
+        width: 100%;
+        /* The width is 100%, when the viewport is 800px or smaller */
+      }
+    }
+
+    @media screen and (max-width:480px) {
+      body {
+        display: grid;
+        place-items: center;
+        background-color: whitesmoke;
+        margin: 0;
+        padding: 0;
+        width: auto;
+        height: min-content;
+      }
+
+      .box {
+        width: 420px;
+        height: 500px;
+        margin-left: 15px;
+        border-bottom-right-radius: 100px;
+      }
+
+      #div-button {
+        height: 15px;
+      }
+
+      button {
+        position: relative;
+        left: 32%;
+        top: -230%;
+      }
+
+      #hr {
+        width: 300px;
+      }
+
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Day
+  DD
+
+  Month
+  MM
+
+  Year
+  YYYY
+
+  -- years
+  -- months
+  -- days -->
+
+  <div class="box">
+    <form class="form">
+      <label for="day" class="day" id="label-day">DAY</label>
+      <label for="month" class="month" id="label-month">MONTH</label>
+      <label for="year" class="year" id="label-year">YEAR</label>
+
+      <br />
+      <input id="day" type="number" placeholder="DD">
+
+      <input id="month" type="number" placeholder="MM">
+
+      <input id="year" type="number" placeholder="YYYY">
+      <br />
+
+      <span class="error-states" id="error-day">Must be a valid day </span>
+      <span class="error-states" id="error-month">Must be a valid month</span>
+      <span class="error-states" id="error-year">Must be in a past</span>
+
+      <br />
+      <br />
+      <br />
+      <hr id="hr">
+      <div id="div-button">
+        <button onclick="handleAge(event)"> <img src="down-arrow-purple-edits.png" alt="downarrow"
+            style="max-width:100%;height:auto;" /></button>
+      </div>
+    </form>
+    <div class="inner-box">
+      <p><span id="ans-year">--</span>years</p>
+      <p><span id="ans-month">--</span>months</p>
+      <p><span id="ans-day">--</span>days</p>
+    </div>
+  </div>
+
+  <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+    Coded by <a href="#">Kumara Murugan G</a>.
+  </div>
+</body>
+<script>
+  function handleAge(event) {
+    event.preventDefault();
+
+    const a = document.getElementById("day").value;
+    const b = document.getElementById("month").value;
+    const c = document.getElementById("year").value;
+
+    let date = new Date()
+    let arr = date.toLocaleDateString().split("/").map(Number);
+    // let arr=[3,3,2024]; sample one also check if works on leap year or not
+
+    console.log(arr)
+    let DOB = [];
+    DOB.push(parseInt(b));
+    DOB.push(parseInt(a));
+    DOB.push(parseInt(c));
+
+    console.log(DOB)
+
+
+    //changing date;
+    if (a > 31 || a < 1 || (b == 2 && c % 4 == 0 && a > 29) || (b == 2 && c % 4 !== 0 && a > 28) || (b % 2 == 0 && a > 30)) {
+      document.getElementById("day").style.color = "red";
+      document.getElementById("day").style.outline = "1px solid red";
+      document.getElementById("label-day").style.color = "red";
+      document.getElementById("error-day").style.visibility = "visible"
+    } else {
+      document.getElementById("day").style.color = "black";
+      document.getElementById("day").style.outline = "1px solid grey";
+      document.getElementById("label-day").style.color = "grey";
+      document.getElementById("error-day").style.visibility = "hidden";
+    }
+    //changing month;
+    if (b > 12 || b < 1) {
+      document.getElementById("month").style.color = "red";
+      document.getElementById("month").style.outline = "1px solid red";
+      document.getElementById("label-month").style.color = "red";
+      document.getElementById("error-month").style.visibility = "visible";
+    } else {
+      document.getElementById("month").style.color = "black";
+      document.getElementById("month").style.outline = "1px solid grey";
+      document.getElementById("label-month").style.color = "grey";
+      document.getElementById("error-month").style.visibility = "hidden";
+    }
+    //changing year;
+    if (c < 1 || c > arr[2]) {
+      document.getElementById("year").style.color = "red";
+      document.getElementById("year").style.outline = "1px solid red";
+      document.getElementById("label-year").style.color = "red";
+      document.getElementById("error-year").style.visibility = "visible";
+    } else {
+      document.getElementById("year").style.color = "black";
+      document.getElementById("year").style.outline = "1px solid black";
+      document.getElementById("label-year").style.color = "grey";
+      document.getElementById("error-year").style.visibility = "hidden";
+    }
+
+    if (document.getElementById("error-year").style.visibility == "hidden" && document.getElementById("error-month").style.visibility == "hidden" && document.getElementById("error-day").style.visibility == "hidden") {
+      let monthOfDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+      let month = arr[0];
+      if (arr[2] % 4 == 0) {
+        monthOfDays[1] = 29;
+      }
+      if (arr[0] < DOB[0]) {
+        arr[0] += 12;
+        arr[2] -= 1
+        console.log("month change: ", arr, DOB)
+      }
+      if (arr[1] < DOB[1]) {
+        arr[0] -= 1;
+        arr[1] += monthOfDays[month - 2]
+        console.log("day change: ", arr, DOB)
+      }
+      document.getElementById("ans-year").innerHTML = `${arr[2] - DOB[2]}`;
+      document.getElementById("ans-month").innerHTML = `${arr[0] - DOB[0]}`;
+      document.getElementById("ans-day").innerHTML = `${arr[1] - DOB[1]}`;
+
+    }
+  }
+
+</script>
+
+</html>
